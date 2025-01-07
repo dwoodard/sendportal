@@ -12,12 +12,11 @@ use Tests\TestCase;
 
 class WorkspaceApiTokenTest extends TestCase
 {
-    use RefreshDatabase;
-    use WithFaker;
+    use RefreshDatabase,
+        WithFaker;
 
     /**
      * @test
-     *
      * @group workspace_user_test
      */
     public function valid_api_token_grants_access()
@@ -30,7 +29,7 @@ class WorkspaceApiTokenTest extends TestCase
         $response = $this->get(
             route('sendportal.api.subscribers.index'),
             [
-                'Authorization' => 'Bearer '.$apiToken->api_token,
+                'Authorization' => 'Bearer ' . $apiToken->api_token
             ]
         );
 
@@ -48,7 +47,7 @@ class WorkspaceApiTokenTest extends TestCase
         $response = $this->get(
             route('sendportal.api.subscribers.index'),
             [
-                'Authorization' => 'Bearer '.Str::random(32),
+                'Authorization' => 'Bearer ' . Str::random(32)
             ]
         );
 

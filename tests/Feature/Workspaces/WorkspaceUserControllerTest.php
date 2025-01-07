@@ -15,7 +15,6 @@ class WorkspaceUserControllerTest extends TestCase
 
     /**
      * @test
-     *
      * @group workspace_user_test
      */
     public function an_unauthenticated_user_cannot_view_the_workspace_user_index()
@@ -27,7 +26,6 @@ class WorkspaceUserControllerTest extends TestCase
 
     /**
      * @test
-     *
      * @group workspace_user_test
      */
     public function users_cannot_view_workspace_users_for_a_workspace_they_do_not_own()
@@ -48,7 +46,6 @@ class WorkspaceUserControllerTest extends TestCase
 
     /**
      * @test
-     *
      * @group workspace_user_test
      */
     public function users_can_view_workspace_users_for_a_workspace_they_do_own()
@@ -64,7 +61,6 @@ class WorkspaceUserControllerTest extends TestCase
 
     /**
      * @test
-     *
      * @group workspace_user_test
      */
     public function workspace_owners_can_remove_users_from_their_workspace()
@@ -84,7 +80,6 @@ class WorkspaceUserControllerTest extends TestCase
 
     /**
      * @test
-     *
      * @group workspace_user_test
      */
     public function workspace_owners_cannot_remove_themselves_from_their_workspace()
@@ -101,7 +96,6 @@ class WorkspaceUserControllerTest extends TestCase
 
     /**
      * @test
-     *
      * @group workspace_user_test
      */
     public function only_workspace_owners_can_remove_users_from_a_workspace()

@@ -10,7 +10,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class Workspace extends JsonResource
 {
     /**
-     * @param  Request  $request
+     * @param Request $request
+     * @return array
      */
     public function toArray($request): array
     {
@@ -18,7 +19,7 @@ class Workspace extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString()
         ];
     }
 }

@@ -19,7 +19,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $token
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @property Workspace $workspace
+ *
  * @property-read Carbon $expires_at
  *
  * @method static InvitationFactory factory
@@ -36,6 +38,8 @@ class Invitation extends Model
 
     /**
      * The workspace this invitation is for.
+     *
+     * @return BelongsTo
      */
     public function workspace(): BelongsTo
     {

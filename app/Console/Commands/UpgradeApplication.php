@@ -34,6 +34,8 @@ class UpgradeApplication extends BaseCommand
 
     /**
      * Execute the console command.
+     *
+     * @return int
      */
     public function handle(): int
     {
@@ -60,7 +62,7 @@ class UpgradeApplication extends BaseCommand
             'vendor:publish',
             [
                 '--provider' => SendportalBaseServiceProvider::class,
-                '--force' => true,
+                '--force' => true
             ]
         );
 

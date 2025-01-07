@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Livewire\Setup;
 use App\Models\ApiToken;
+use App\Http\Livewire\Setup;
 use App\Models\User;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Livewire;
 use RuntimeException;
@@ -25,8 +24,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        Paginator::useBootstrap();
-
         Sendportal::setCurrentWorkspaceIdResolver(
             static function () {
                 /** @var User $user */
@@ -36,12 +33,12 @@ class AppServiceProvider extends ServiceProvider
 
                 if ($user && $user->currentWorkspaceId()) {
                     $workspaceId = $user->currentWorkspaceId();
-                } elseif ($request && (($apiToken = $request->bearerToken()) || ($apiToken = $request->get('api_token')))) {
+                } else if ($request && (($apiToken = $request->bearerToken()) || ($apiToken = $request->get('api_token')))) {
                     $workspaceId = ApiToken::resolveWorkspaceId($apiToken);
                 }
 
                 if (! $workspaceId) {
-                    throw new RuntimeException('Current Workspace ID Resolver must not return a null value.');
+                    throw new RuntimeException("Current Workspace ID Resolver must not return a null value.");
                 }
 
                 return $workspaceId;

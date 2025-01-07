@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ProfileUpdateRequest;
 
 class ProfileController extends Controller
 {
@@ -25,6 +25,6 @@ class ProfileController extends Controller
     {
         $request->user()->update($request->validated());
 
-        return redirect()->route('profile.show')->with('success', __('Your profile was updated successfully!'));
+        return redirect()->back()->with('success', __('Your profile was updated successfully!'));
     }
 }

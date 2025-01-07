@@ -11,12 +11,11 @@ use Tests\TestCase;
 
 class WorkspaceRequiredTest extends TestCase
 {
-    use RefreshDatabase;
-    use WithFaker;
+    use RefreshDatabase,
+        WithFaker;
 
     /**
      * @test
-     *
      * @group workspace_user_test
      */
     public function user_gets_404_if_no_workspace_provided()

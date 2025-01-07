@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Workspace;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class Admin implements StepInterface
 {
@@ -51,7 +52,7 @@ class Admin implements StepInterface
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'max:255'],
-            'company' => ['required', 'string'],
+            'company' => ['required', 'string']
         ];
 
         $validator = Validator::make($input, $validationRules);

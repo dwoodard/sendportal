@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Workspaces;
 
-use App\Models\Invitation;
-use App\Models\User;
-use App\Models\Workspace;
-use App\Services\Workspaces\AddWorkspaceMember;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Invitation;
+use App\Models\Workspace;
+use App\Models\User;
+use App\Services\Workspaces\AddWorkspaceMember;
 use Tests\TestCase;
 
 class WorkspaceInvitationsControllerTest extends TestCase
 {
-    use RefreshDatabase;
-    use WithFaker;
+    use RefreshDatabase,
+        WithFaker;
 
     /** @test */
     public function an_invitation_can_be_sent_to_a_new_user()
@@ -24,10 +24,10 @@ class WorkspaceInvitationsControllerTest extends TestCase
         // given
         [$workspace, $user] = $this->createUserAndWorkspace();
 
-        $email = $this->faker->safeEmail();
+        $email = $this->faker->safeEmail;
 
         $postData = [
-            'email' => $email,
+            'email' => $email
         ];
 
         // when
@@ -42,7 +42,7 @@ class WorkspaceInvitationsControllerTest extends TestCase
             [
                 'workspace_id' => $workspace->id,
                 'email' => $email,
-                'user_id' => null,
+                'user_id' => null
             ]
         );
     }
@@ -56,7 +56,7 @@ class WorkspaceInvitationsControllerTest extends TestCase
         $existingInviteUser = User::factory()->create();
 
         $postData = [
-            'email' => $existingInviteUser->email,
+            'email' => $existingInviteUser->email
         ];
 
         // when
@@ -66,8 +66,14 @@ class WorkspaceInvitationsControllerTest extends TestCase
         // then
         $response->assertRedirect(route('users.index'));
 
-        // existing user's invitation will be accepted automatically, and the invitation will be deleted
-        $this->assertDatabaseEmpty('invitations');
+        $this->assertDatabaseHas(
+            'invitations',
+            [
+                'workspace_id' => $workspace->id,
+                'email' => $existingInviteUser->email,
+                'user_id' => $existingInviteUser->id
+            ]
+        );
     }
 
     /** @test */
@@ -79,10 +85,10 @@ class WorkspaceInvitationsControllerTest extends TestCase
 
         (new AddWorkspaceMember())->handle($workspace, $user, Workspace::ROLE_MEMBER);
 
-        $email = $this->faker->safeEmail();
+        $email = $this->faker->safeEmail;
 
         $postData = [
-            'email' => $email,
+            'email' => $email
         ];
 
         // when
@@ -96,7 +102,7 @@ class WorkspaceInvitationsControllerTest extends TestCase
             'invitations',
             [
                 'workspace_id' => $workspace->id,
-                'email' => $email,
+                'email' => $email
             ]
         );
     }
@@ -109,7 +115,7 @@ class WorkspaceInvitationsControllerTest extends TestCase
 
         $invitation = Invitation::factory()->create(
             [
-                'workspace_id' => $workspace->id,
+                'workspace_id' => $workspace->id
             ]
         );
 
@@ -123,7 +129,7 @@ class WorkspaceInvitationsControllerTest extends TestCase
         $this->assertDatabaseMissing(
             'invitations',
             [
-                'id' => $invitation->id,
+                'id' => $invitation->id
             ]
         );
     }

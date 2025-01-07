@@ -20,6 +20,7 @@ use Sendportal\Base\Models\BaseModel;
  * @property string $name
  * @property Carbon $created_at
  * @property Carbon $updated_at
+ *
  * @property User $owner
  * @property EloquentCollection $users
  * @property EloquentCollection $invitations
@@ -31,7 +32,6 @@ class Workspace extends BaseModel
     use HasFactory;
 
     public const ROLE_OWNER = 'owner';
-
     public const ROLE_MEMBER = 'member';
 
     /**
@@ -67,13 +67,10 @@ class Workspace extends BaseModel
      *
      * @var array
      */
-    protected function casts(): array
-    {
-        return [
-            'owner_id' => 'int',
-            'trial_ends_at' => 'datetime',
-        ];
-    }
+    protected $casts = [
+        'owner_id' => 'int',
+        'trial_ends_at' => 'datetime',
+    ];
 
     /**
      * Get the owner of the workspace.
@@ -105,6 +102,7 @@ class Workspace extends BaseModel
     /**
      * Detach all of the users from the workspace and delete the workspace.
      *
+     * @return void
      * @throws Exception
      */
     public function detachUsersAndDestroy(): void
